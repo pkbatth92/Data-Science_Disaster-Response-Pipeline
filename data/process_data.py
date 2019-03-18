@@ -4,9 +4,22 @@ import numpy as np
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
+    # function to load data into the dataframe
+    # input: messages_filepath -> the path where the file with all the messages is located
+    #        categories_filepath -> the path where the file with the corresponding categories is located
+    # output: df -> dataframe with the messages and categories joined by message ids
+    # loading messages dataset
+    messages = pd.read_csv(messages_filepath)
     
-   
+    # loading categories dataset
+    categories = pd.read_csv(categories_filepath)
+    
+    # merging the two datasets to create a new dataframe combining messages with corresponding categories
+    df = messages.join(categories.set_index('id'), on='id')
+    
+    return df
 
+   
 
 def clean_data(df):
     
